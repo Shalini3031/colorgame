@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid2x2{
+            display: grid;
+            grid-template-columns: 2fr 2fr;
+            grid-template-rows:300px 300px;
+        }
+        .box{
+            border:2px solid black;
+            height: 100px;
+            width:500px;
+           
+            
+        }
+        .grid3x3{
+            display: grid;
+            grid-template-columns: 3fr 3fr;
+            grid-template-rows:300px 300px;
+        }
+        .grid4x4{
+            display: grid;
+            grid-template-columns: 4fr 4fr;
+            grid-template-rows:300px 300px;
+        }
+        .red{
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+    <div class="container grid3x3"></div>
+    <div class="container grid4x4"></div>
+    <script>
+        window.onload=function(){
+
+            let level=2;
+             const map=new Map()
+             map.set(1,"grid2x2")
+             map.set(2,"grid3x3")
+             map.set(3,"grid4x4")
+      
+            
+            function getbox(box){
+                return `<div id='${box.id}'  class="box ${box.color?box.color:''}" ></div>`
+               
+            }
+
+            function draw(){
+                let html="";
+                document.querySelector(".container").classList.add(map.get(level))
+                for(let box of boxes)
+                {
+                    html+=getbox(box)
+                }
+                document.querySelector(".container").innerHTML=html
+            }
+            
+            const boxes=[]
+            function loadBoxes(numBox){
+                for(let i=0;i<numBox;i++)
+                {
+                    boxes[i]=makeBox(i)
+                  
+                }
+            }
+            
+
+            function makeBox(id){
+                 return{
+                     closed:true,id,
+                     setColor(color){
+                         this.color=color
+                     },
+                     Open(){
+                         this.closed=false
+                     }
+                 }
+             }
+
+             function applycolor(){
+                return  Math.floor(Math.random()*10)%2
+             }
+             
+             function colorBoxes(){
+                 for (let box of boxes){
+                     if(applycolor())
+                     box.setColor("red")
+                 }
+             
+             if(!colored())
+             {
+                 colorBoxes()
+             }
+            }
+
+              function colored(){
+                  for(let box of boxes){
+                      if(box.color)
+                      return true
+                  }
+                  return false
+              }
+
+             function start(){
+             loadBoxes(4)
+             colorBoxes()
+            console.log(boxes)
+            draw()
+        }
+        start()
+    }
+        
+             
+    </script>
+</body>
+</html>
