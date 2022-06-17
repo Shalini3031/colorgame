@@ -118,18 +118,34 @@
                 for(let box of redBoxes){
                     box.classList.remove("red")
                 }
+                setupClicks()
 
             },duration)
+            
         }
-        
+         
+
+        function setupClicks(){
+            let boxes=document.querySelectorAll(".box")
+            for(let box of boxes){
+                box.onclick=function(e){
+                    alert(e.target.id)
+                    
+                }
+            }
+        }
+
+
         function start(){
              loadBoxes(4)
              colorBoxes()
             console.log(boxes)
             draw()
             toggleColor(5000)
+           
              }
         
+             
         
         start()
 
