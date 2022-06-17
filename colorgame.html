@@ -31,7 +31,7 @@
         .red{
             background-color: red;
         }
-
+     
     </style>
 </head>
 <body>
@@ -39,7 +39,7 @@
     <div class="container grid3x3"></div>
     <div class="container grid4x4"></div>
     <script>
-        window.onload=function(){
+     window.onload=function(){
 
             let level=2;
              const map=new Map()
@@ -61,6 +61,7 @@
                     html+=getbox(box)
                 }
                 document.querySelector(".container").innerHTML=html
+               
             }
             
             const boxes=[]
@@ -93,6 +94,7 @@
                  for (let box of boxes){
                      if(applycolor())
                      box.setColor("red")
+                    
                  }
              
              if(!colored())
@@ -108,14 +110,30 @@
                   }
                   return false
               }
+              
 
-             function start(){
+            function toggleColor(duration){
+            setTimeout(function(){
+                let redBoxes=document.querySelectorAll(".red")
+                for(let box of redBoxes){
+                    box.classList.remove("red")
+                }
+
+            },duration)
+        }
+        
+        function start(){
              loadBoxes(4)
              colorBoxes()
             console.log(boxes)
             draw()
-        }
+            toggleColor(5000)
+             }
+        
+        
         start()
+
+       
     }
         
              
