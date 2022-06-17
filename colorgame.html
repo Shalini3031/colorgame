@@ -76,12 +76,12 @@
 
             function makeBox(id){
                  return{
-                     closed:true,id,
+                     selected:false,id,
                      setColor(color){
                          this.color=color
                      },
-                     Open(){
-                         this.closed=false
+                     select(){
+                         this.selected=true
                      }
                  }
              }
@@ -126,14 +126,24 @@
          
 
         function setupClicks(){
-            let boxes=document.querySelectorAll(".box")
-            for(let box of boxes){
+            let divs=document.querySelectorAll(".box")
+            for(let box of divs){
                 box.onclick=function(e){
-                    alert(e.target.id)
-                    
+                    const index=e.target.id
+                    const selectedBox = boxes[index]
+                   if(!selectedBox.selected){
+                    if(selectedBox.color){
+                        e.target.classList.add(selectedBox.color)
+                        
+                    }
+                    else{
+                        alert("you lost the game")
+                    }
+                    selectedBox.select()
                 }
             }
         }
+    }
 
 
         function start(){
@@ -151,7 +161,7 @@
 
        
     }
-        
+
              
     </script>
 </body>
